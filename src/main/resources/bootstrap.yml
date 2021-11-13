@@ -1,0 +1,11 @@
+server:
+  port: 8500
+  servlet:
+    context-path: /cinemax
+  
+spring:
+  application:
+    name: Movie-Seat-Availability
+  cloud: 
+    config:       fail-fast: true
+      uri: http://localhost:8502

@@ -1,0 +1,13 @@
+spring: 
+  cloud: 
+    config: 
+      label: develop
+  datasource: 
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: stackdbo
+    password: stackdbo
+  jpa: 
+    show-sql: true
+    hibernate: 
+      ddl-auto: update
