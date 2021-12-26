@@ -21,7 +21,7 @@ import com.devcodestack.movie.repository.AvailabilityRepo;
 import com.devcodestack.movie.util.MovieConstants;
 
 @ExtendWith(MockitoExtension.class)
-public class AvailabilityServiceTest {
+class AvailabilityServiceTest {
 	
 	@InjectMocks
 	private AvailabilityService availabilityService;
@@ -40,21 +40,21 @@ public class AvailabilityServiceTest {
 	 * getMovieData positive test
 	 */
 	@Test
-	public void getMovieData_success() {
+	void getMovieData_success() {
 		Movie movie = Movie.builder().movieName("movieTest").availSeats(100).seatPrice(100).build();
 		List<Movie> movieList = new ArrayList<>();
 		movieList.add(movie);
 		when(availabilityRepo.getMovieDataByName(ArgumentMatchers.any())).thenReturn(movieList);
 		
 		List<Movie> movieResp = availabilityService.getMovieData(booking.getMovieName());
-		assertEquals(movieResp.get(0).getAvailSeats(), 100);
+		assertEquals(100, movieResp.get(0).getAvailSeats());
 	}
 	
 	/**
 	 * updateMovieSeats positive test
 	 */
 	@Test
-	public void updateMovieSeats_success() {
+	void updateMovieSeats_success() {
 		Movie movie = Movie.builder().movieName("movieTest").availSeats(100).seatPrice(100).build();
 		List<Movie> movieList = new ArrayList<>();
 		movieList.add(movie);
@@ -63,14 +63,14 @@ public class AvailabilityServiceTest {
 		when(availabilityRepo.updateMovieSeat(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
 		
 		BookingStatus status = availabilityService.updateMovieSeats(booking);
-		assertEquals(status.getBookingMsg(), MovieConstants.SEATS_BOOKED);
+		assertEquals(MovieConstants.SEATS_BOOKED, status.getBookingMsg());
 	}
 	
 	/**
 	 * updateMovieSeats negative test
 	 */
 	@Test
-	public void updateMovieSeats_notbooked() {
+	void updateMovieSeats_notbooked() {
 		Movie movie = Movie.builder().movieName("movieTest").availSeats(100).seatPrice(100).build();
 		List<Movie> movieList = new ArrayList<>();
 		movieList.add(movie);
@@ -79,14 +79,14 @@ public class AvailabilityServiceTest {
 		when(availabilityRepo.updateMovieSeat(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(0);
 		
 		BookingStatus status = availabilityService.updateMovieSeats(booking);
-		assertEquals(status.getBookingMsg(), MovieConstants.SEATS_NOTBOOKED);
+		assertEquals(MovieConstants.SEATS_NOTBOOKED, status.getBookingMsg());
 	}
 	
 	/**
 	 * updateMovieSeats negative test
 	 */
 	@Test
-	public void updateMovieSeats_unavailable() {
+	void updateMovieSeats_unavailable() {
 		Movie movie = Movie.builder().movieName("movieTest").availSeats(9).seatPrice(100).build();
 		List<Movie> movieList = new ArrayList<>();
 		movieList.add(movie);
@@ -94,27 +94,27 @@ public class AvailabilityServiceTest {
 		when(availabilityRepo.getMovieDataByName(ArgumentMatchers.any())).thenReturn(movieList);
 		
 		BookingStatus status = availabilityService.updateMovieSeats(booking);
-		assertEquals(status.getBookingMsg(), MovieConstants.SEATS_UNAVAILABLE);
+		assertEquals(MovieConstants.SEATS_UNAVAILABLE, status.getBookingMsg());
 	}
 	
 	/**
 	 * updateMovieSeats negative test
 	 */
 	@Test
-	public void updateMovieSeats_empty() {
+	void updateMovieSeats_empty() {
 		List<Movie> movieList = new ArrayList<>();
 		
 		when(availabilityRepo.getMovieDataByName(ArgumentMatchers.any())).thenReturn(movieList);
 		
 		BookingStatus status = availabilityService.updateMovieSeats(booking);
-		assertEquals(status.getBookingMsg(), MovieConstants.INVALID_MOVIE);
+		assertEquals(MovieConstants.INVALID_MOVIE, status.getBookingMsg());
 	}
 	
 	/**
 	 * updateMovieSeats negative test
 	 */
 	@Test
-	public void updateMovieSeats_incorrect_movie() {
+	void updateMovieSeats_incorrect_movie() {
 		Movie movie = Movie.builder().movieName("movieReTest").availSeats(9).seatPrice(100).build();
 		List<Movie> movieList = new ArrayList<>();
 		movieList.add(movie);
@@ -122,6 +122,6 @@ public class AvailabilityServiceTest {
 		when(availabilityRepo.getMovieDataByName(ArgumentMatchers.any())).thenReturn(movieList);
 		
 		BookingStatus status = availabilityService.updateMovieSeats(booking);
-		assertEquals(status.getBookingMsg(), MovieConstants.SEATS_NOTBOOKED);
+		assertEquals(MovieConstants.SEATS_NOTBOOKED, status.getBookingMsg());
 	}
 }

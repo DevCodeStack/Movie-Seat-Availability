@@ -2,6 +2,10 @@ package com.devcodestack.movie.util;
 
 public class MovieConstants {
 	
+	private MovieConstants() {
+		//For sonar check
+	}
+	
 	public static final String INVALID_MOVIE = "Provided movie is invalid";
 	
 	public static final String SEATS_BOOKED = "Seats successfully booked";

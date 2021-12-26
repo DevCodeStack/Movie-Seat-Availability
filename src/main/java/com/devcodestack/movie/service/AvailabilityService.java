@@ -24,8 +24,7 @@ public class AvailabilityService {
 	private AvailabilityRepo availabilityRepo;
 	
 	public List<Movie> getMovieData(String movieName){
-		List<Movie> movieList = availabilityRepo.getMovieDataByName(movieName);
-		return movieList;
+		return availabilityRepo.getMovieDataByName(movieName);
 	}
 	
 	public BookingStatus updateMovieSeats(Booking booking) {
@@ -35,9 +34,7 @@ public class AvailabilityService {
 		if(movieList.isEmpty()) {
 			status.setBookingMsg(INVALID_MOVIE);
 			return status;
-		}			
-		
-		boolean updateCheck = false;
+		}
 		
 		for(Movie movie : movieList) {
 			if(movie.getMovieName().equalsIgnoreCase(booking.getMovieName())) {
@@ -45,7 +42,6 @@ public class AvailabilityService {
 					movie.setAvailSeats(movie.getAvailSeats() - booking.getNbrOfSeats());
 					Integer count = availabilityRepo.updateMovieSeat(movie.getAvailSeats(), movie.getMovieId());
 					if(count > 0) {
-						updateCheck = true;
 						status.setBookingMsg(SEATS_BOOKED);
 						status.setBookingState(true);
 						return status;
@@ -60,8 +56,7 @@ public class AvailabilityService {
 			}
 		}
 		
-		if(!updateCheck)
-			status.setBookingMsg(SEATS_NOTBOOKED);
+		status.setBookingMsg(SEATS_NOTBOOKED);
 		
 		return status;
 	}
