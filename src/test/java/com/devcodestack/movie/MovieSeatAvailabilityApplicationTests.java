@@ -11,7 +11,6 @@ class MovieSeatAvailabilityApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertEquals(1, 1);
 	}
 
 }
